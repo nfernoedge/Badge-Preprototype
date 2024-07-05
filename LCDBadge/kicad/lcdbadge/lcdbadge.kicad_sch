@@ -1885,16 +1885,6 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 130.81) (xy 128.27 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5116a775-06d5-4d81-a719-50f9fa629d51")
-	)
-	(wire
-		(pts
 			(xy 135.89 76.2) (xy 157.48 76.2)
 		)
 		(stroke
@@ -2112,16 +2102,6 @@
 			(type default)
 		)
 		(uuid "931832f6-de2d-481d-9d6f-c2050d53a041")
-	)
-	(wire
-		(pts
-			(xy 60.96 130.81) (xy 31.75 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93240889-82e2-4a61-a091-6b6ed14a4663")
 	)
 	(wire
 		(pts
@@ -2544,6 +2524,17 @@
 		)
 		(uuid "11741051-50f3-43fe-a588-995551f07603")
 	)
+	(label "TFT_CS"
+		(at 120.65 130.81 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "155a2efd-4a11-4fbb-8ace-9258cb9fe030")
+	)
 	(label "MOSI"
 		(at 142.24 78.74 0)
 		(fields_autoplaced yes)
@@ -2631,6 +2622,17 @@
 			(justify left bottom)
 		)
 		(uuid "8f0baa6a-3401-4c3f-97ec-5ef9e40782fa")
+	)
+	(label "TFT_A0"
+		(at 60.96 130.81 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b2c1e38e-c905-432e-afea-9943df133415")
 	)
 	(label "BUTTON_3"
 		(at 48.26 123.19 0)
