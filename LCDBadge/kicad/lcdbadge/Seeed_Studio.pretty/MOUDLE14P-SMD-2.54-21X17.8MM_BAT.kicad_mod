@@ -21,7 +21,7 @@
 		(effects
 			(font
 				(size 0.48 0.48)
-				(thickness 0.15)
+				(thickness 0.12)
 			)
 		)
 	)
@@ -163,17 +163,6 @@
 		(layer "Dwgs.User")
 		(uuid "15d1db8e-acd3-4f0b-a4f4-6641fc0ed063")
 	)
-	(fp_rect
-		(start 2.98 -12.74)
-		(end 5.9 -10.43)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(fill none)
-		(layer "Edge.Cuts")
-		(uuid "06cf665a-862e-4292-83ab-a2747e8799a2")
-	)
 	(fp_poly
 		(pts
 			(xy 0 -21) (xy 17.8 -21) (xy 17.8 0.155) (xy 0 0.155)
@@ -285,17 +274,17 @@
 		(uuid "20b88425-9621-438c-9aab-6d3019ff864d")
 	)
 	(pad "15" thru_hole circle
-		(at 4.44 -10.43)
-		(size 2.1 2.1)
-		(drill 1.7)
-		(layers "*.Cu" "*.Mask")
+		(at 4.44 -10.1)
+		(size 2.6 2.6)
+		(drill 2.2)
+		(layers "*.Cu" "*.Mask" "Eco2.User")
 		(remove_unused_layers no)
 		(uuid "da1a08a7-c79e-4074-b4a9-3665bf571047")
 	)
 	(pad "16" thru_hole circle
-		(at 4.44 -12.74)
-		(size 2.1 2.1)
-		(drill 1.7)
+		(at 4.44 -13.54)
+		(size 2.6 2.6)
+		(drill 2.2)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "38b7b0c3-9d64-481a-96e5-c9a9519f3292")
@@ -352,7 +341,7 @@
 		)
 		(polygon
 			(pts
-				(xy 3.683 -17.018) (xy 5.461 -17.018) (xy 5.461 -14.351) (xy 3.683 -14.351)
+				(xy 3.683 -17.018) (xy 5.461 -17.018) (xy 5.461 -15) (xy 3.683 -15)
 			)
 		)
 	)
@@ -494,6 +483,17 @@
 			(pts
 				(xy 2.9845 -13.5365) (xy 5.9055 -13.5365) (xy 5.9055 -9.6315) (xy 2.9845 -9.6315)
 			)
+		)
+	)
+	(model "${KIPRJMOD}/seeed-studio-xiao-esp32s3-1.snapshot.1/XIAO-ESP32S3 v2.step"
+		(offset
+			(xyz 15 8.75 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 0 -90)
 		)
 	)
 )

@@ -1646,6 +1646,12 @@
 		(uuid "4c2fc93d-c793-4495-9621-d975657eac6d")
 	)
 	(junction
+		(at 91.44 165.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cf0e299a-0b18-4b5c-9c73-fbf442cb18d7")
+	)
+	(junction
 		(at 130.81 73.66)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1859,6 +1865,16 @@
 	)
 	(wire
 		(pts
+			(xy 60.96 125.73) (xy 39.37 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d5784de-93ae-48bf-9454-b3d0acffbc48")
+	)
+	(wire
+		(pts
 			(xy 118.11 63.5) (xy 121.92 63.5)
 		)
 		(stroke
@@ -1969,16 +1985,6 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 125.73) (xy 60.96 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "65fead75-537f-481d-8fe3-855cc37bf215")
-	)
-	(wire
-		(pts
 			(xy 85.09 140.97) (xy 85.09 143.51)
 		)
 		(stroke
@@ -1986,6 +1992,16 @@
 			(type default)
 		)
 		(uuid "6753133e-7c8f-40a3-b216-08ddcf58178f")
+	)
+	(wire
+		(pts
+			(xy 35.56 53.34) (xy 35.56 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68fb0aec-3663-4bff-ab33-6275dcf2c985")
 	)
 	(wire
 		(pts
@@ -2049,16 +2065,6 @@
 	)
 	(wire
 		(pts
-			(xy 35.56 53.34) (xy 35.56 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8546cb31-cb9d-478b-93b6-6d8f591a89b1")
-	)
-	(wire
-		(pts
 			(xy 87.63 140.97) (xy 87.63 143.51)
 		)
 		(stroke
@@ -2109,6 +2115,16 @@
 	)
 	(wire
 		(pts
+			(xy 60.96 130.81) (xy 31.75 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93240889-82e2-4a61-a091-6b6ed14a4663")
+	)
+	(wire
+		(pts
 			(xy 85.09 143.51) (xy 81.28 143.51)
 		)
 		(stroke
@@ -2116,6 +2132,16 @@
 			(type default)
 		)
 		(uuid "9457dcdf-0b65-4f7a-b5aa-ee6cfb330300")
+	)
+	(wire
+		(pts
+			(xy 91.44 165.1) (xy 91.44 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9b384d9d-b2d6-4ed6-9f64-4dc88b23ff9d")
 	)
 	(wire
 		(pts
@@ -2159,6 +2185,16 @@
 	)
 	(wire
 		(pts
+			(xy 39.37 86.36) (xy 39.37 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9166635-c1cd-45ce-83ad-0ad796267570")
+	)
+	(wire
+		(pts
 			(xy 200.66 97.79) (xy 200.66 100.33)
 		)
 		(stroke
@@ -2179,16 +2215,6 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 50.8) (xy 31.75 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "acfa0a1a-c599-4914-968a-9fe492370f66")
-	)
-	(wire
-		(pts
 			(xy 121.92 60.96) (xy 111.76 60.96)
 		)
 		(stroke
@@ -2206,16 +2232,6 @@
 			(type default)
 		)
 		(uuid "aef062ba-75a5-4e35-b809-d3d72cb48241")
-	)
-	(wire
-		(pts
-			(xy 39.37 86.36) (xy 39.37 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b077898b-c80e-4812-9806-9ff63e247ed8")
 	)
 	(wire
 		(pts
@@ -2309,6 +2325,16 @@
 	)
 	(wire
 		(pts
+			(xy 60.96 128.27) (xy 35.56 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2dbe007-ea24-411f-b430-6a5bd8a23575")
+	)
+	(wire
+		(pts
 			(xy 121.92 58.42) (xy 109.22 58.42)
 		)
 		(stroke
@@ -2326,16 +2352,6 @@
 			(type default)
 		)
 		(uuid "daf9eed6-ee14-4bb4-8c51-fadda868a365")
-	)
-	(wire
-		(pts
-			(xy 35.56 128.27) (xy 60.96 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dd38e0bc-c318-4c73-b6aa-76f26ec5a9a4")
 	)
 	(wire
 		(pts
@@ -2399,16 +2415,6 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 130.81) (xy 60.96 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f46d0c12-4f5b-4ffa-951c-caca44d47078")
-	)
-	(wire
-		(pts
 			(xy 223.52 107.95) (xy 223.52 110.49)
 		)
 		(stroke
@@ -2416,6 +2422,16 @@
 			(type default)
 		)
 		(uuid "f8c57f87-bba0-48f1-82f0-0f946f3a1cb9")
+	)
+	(wire
+		(pts
+			(xy 31.75 50.8) (xy 31.75 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa23f0f8-9073-4a97-8cd6-da755b9df6a2")
 	)
 	(wire
 		(pts
@@ -2507,7 +2523,7 @@
 		(uuid "047d17d0-d663-4f7c-8dd1-1d5461409981")
 	)
 	(label "BUTTON_1"
-		(at 212.09 91.44 0)
+		(at 200.66 109.22 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2540,7 +2556,7 @@
 		(uuid "43f97295-6725-4288-8949-d97ac0c233ce")
 	)
 	(label "BUTTON_4"
-		(at 48.26 123.19 0)
+		(at 48.26 120.65 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2551,7 +2567,7 @@
 		(uuid "54b0a8ab-d487-4030-bba7-aa4505019b58")
 	)
 	(label "BUTTON_2"
-		(at 223.52 109.22 0)
+		(at 212.09 91.44 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2560,6 +2576,17 @@
 			(justify left bottom)
 		)
 		(uuid "5b9dbb1e-56fa-4ad1-b7a5-4cf6bf8f9ebc")
+	)
+	(label "BAT+"
+		(at 81.28 156.21 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6c21a19b-63d8-4a64-9dba-06f012639a05")
 	)
 	(label "BUTTON_2"
 		(at 48.26 118.11 0)
@@ -2573,7 +2600,7 @@
 		(uuid "6f543360-b831-4c3a-bb24-76bda6581594")
 	)
 	(label "SD_CS"
-		(at 39.37 125.73 90)
+		(at 39.37 120.65 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2595,7 +2622,7 @@
 		(uuid "832fcd2d-ba0f-4c21-b0ed-46281f3f90ab")
 	)
 	(label "TFT_CS"
-		(at 31.75 130.81 90)
+		(at 31.75 125.73 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2606,7 +2633,7 @@
 		(uuid "8f0baa6a-3401-4c3f-97ec-5ef9e40782fa")
 	)
 	(label "BUTTON_3"
-		(at 48.26 120.65 0)
+		(at 48.26 123.19 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2639,7 +2666,7 @@
 		(uuid "d548cacf-e347-4d5c-ba13-d439548476d5")
 	)
 	(label "BUTTON_4"
-		(at 200.66 109.22 0)
+		(at 223.52 109.22 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2650,7 +2677,7 @@
 		(uuid "e1b1f491-77c6-4823-965b-144ca19cea3a")
 	)
 	(label "TFT_RESET"
-		(at 35.56 128.27 90)
+		(at 35.56 118.11 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3428,7 +3455,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_THT:SW_Tactile_Straight_KSA0Axx1LFTR"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H4.3mm"
 			(at 195.58 115.57 0)
 			(effects
 				(font
@@ -3679,6 +3706,72 @@
 			(project ""
 				(path "/2f948593-9d8e-433b-a858-da7064157250"
 					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 91.44 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5e9c2035-3c82-409f-ab7b-cecd72c08fe2")
+		(property "Reference" "#PWR015"
+			(at 91.44 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 91.44 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 91.44 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3a36c11e-7856-4c65-a853-4da5aa752237")
+		)
+		(instances
+			(project "lcdbadge"
+				(path "/2f948593-9d8e-433b-a858-da7064157250"
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -3980,7 +4073,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_THT:SW_Tactile_Straight_KSA0Axx1LFTR"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H4.3mm"
 			(at 207.01 137.16 0)
 			(effects
 				(font
@@ -4379,7 +4472,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_THT:SW_Tactile_Straight_KSA0Axx1LFTR"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H4.3mm"
 			(at 218.44 115.57 0)
 			(effects
 				(font
@@ -4582,7 +4675,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_THT:SW_Tactile_Straight_KSA0Axx1LFTR"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H4.3mm"
 			(at 207.01 97.79 0)
 			(effects
 				(font
