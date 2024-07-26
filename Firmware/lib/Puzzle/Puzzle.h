@@ -10,11 +10,13 @@ Last Updated: 22JUL24
 #include <Adafruit_ST7735.h>
 #include "Cursor.h"
 #include "words.h"
+#include "string.h"
 
 
 
 class Puzzle{
     public:
+
         Adafruit_ST7735 *screen;
         Cursor currCursor;
         String title;
@@ -36,6 +38,10 @@ class Puzzle{
         String setw(String inputStr, int width);
         void printWord();
         void clearWord();
+        void rc4_init(unsigned char *s, unsigned char *key, int keylen);
+        void rc4_crypt(unsigned char *s, unsigned char *data, int datalen);
+        int hexCharToInt(char c);
+        void hexStringToByteArray(const char* hexString, byte* byteArray, int length);
 
 };
 #endif

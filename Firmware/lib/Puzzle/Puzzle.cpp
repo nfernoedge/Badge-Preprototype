@@ -39,6 +39,7 @@ int Puzzle::moveCarrotRight(){
         printWord();
     }
     screen -> setCursor((carrotIdx+5)*currCursor.dx, (4)*currCursor.dy );
+    screen -> setTextSize(2);
     screen -> print("^");
     return 0;
 
@@ -121,15 +122,28 @@ void Puzzle::printWord(){
     screen -> print(setw(String("vetconactual.com/dc32/"), 28));
     screen -> setCursor(0, (6*currCursor.dy));
     screen -> setTextSize(1);
-    screen -> print(setw(String(endpoints[currValue]), 28));
-    Serial.println(setw(String(endpoints[currValue]), 26));
+    int hexLength = strlen(endpoints[currValue]);
+    int dataLength = hexLength / 2;
+    byte encryptedData[dataLength];
+    hexStringToByteArray(endpoints[currValue], encryptedData, hexLength);
+    unsigned char s[256];
+    rc4_init(s, (unsigned char*)rc4Key[0], 32);
+
+    // Decrypt the data
+    rc4_crypt(s, encryptedData, dataLength);
+    encryptedData[dataLength]=0x00;
+    Serial.println("Decrypted: ");
+    Serial.println((char *)encryptedData);
+    screen -> print(setw(String((char *)encryptedData), 28));
     
 }
 void Puzzle::clearWord(){
-    screen -> setCursor((0), (5*currCursor.dy));
     screen -> setTextSize(1);
+    screen -> setCursor((0), (5*currCursor.dy));
     screen -> print("                         ");
     screen -> setCursor((0), (6*currCursor.dy));
+    screen -> print("                         ");
+    screen -> setCursor((0), (7*currCursor.dy));
     screen -> print("                         ");
     screen -> setTextSize(2);
 }
@@ -147,4 +161,47 @@ String Puzzle::setw(String inputStr, int width){
     }
     formatted+= inputStr;
     return formatted;
+}
+// RC4 implementation
+void Puzzle::rc4_init(unsigned char *s, unsigned char *key, int keylen) {
+    int i, j = 0, k;
+    unsigned char temp;
+  
+    for (i = 0; i < 256; i++)
+        s[i] = i;
+    for (i = 0; i < 256; i++) {
+        j = (j + s[i] + key[i % keylen]) % 256;
+        temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+    }
+}
+
+void Puzzle::rc4_crypt(unsigned char *s, unsigned char *data, int datalen) {
+    int i = 0, j = 0, x;
+    unsigned char temp;
+  
+    for (x = 0; x < datalen; x++) {
+        i = (i + 1) % 256;
+        j = (j + s[i]) % 256;
+        temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+        data[x] ^= s[(s[i] + s[j]) % 256];
+    }
+}
+
+// Function to convert a hex character to its integer value
+int Puzzle::hexCharToInt(char c) {
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'a' && c <= 'f') return c - 'a' + 10;
+    if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+    return -1;
+}
+
+// Function to convert a hex string to a byte array
+void Puzzle::hexStringToByteArray(const char* hexString, byte* byteArray, int length) {
+    for (int i = 0; i < length; i += 2) {
+        byteArray[i / 2] = (hexCharToInt(hexString[i]) << 4) + hexCharToInt(hexString[i + 1]);
+    }
 }
