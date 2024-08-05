@@ -28,6 +28,7 @@ class Menu{
         int numChoices;
         int ifMenu;
         FunctionStruct* choices;
+        int16_t bgColor = ST77XX_BLACK;
         Menu(Adafruit_ST7735 *tftScreen, String usrTitle, FunctionStruct* usrChoices, int usrNumChoices, int usrIfMenu);
 
 

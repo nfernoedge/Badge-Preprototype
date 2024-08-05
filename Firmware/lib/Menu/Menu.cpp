@@ -17,8 +17,8 @@ Menu::Menu(Adafruit_ST7735 *tftScreen, String usrTitle, FunctionStruct* usrChoic
 // Print Menu that has options to select from
 void Menu::printMenu(){
     screen -> setCursor(0,0);
-    screen -> fillScreen(ST77XX_BLACK);
-    screen -> setTextColor(ST77XX_WHITE, ST77XX_BLACK);
+    screen -> fillScreen(bgColor);
+    screen -> setTextColor(ST77XX_WHITE, bgColor);
     screen -> setTextSize(2);
     screen -> println(title);
     screen -> println();
@@ -33,8 +33,8 @@ void Menu::printMenu(){
 void Menu::printText(){
     currLineNum = 0;
     screen -> setCursor(0,0);
-    screen -> fillScreen(ST77XX_BLACK);
-    screen -> setTextColor(ST77XX_WHITE, ST77XX_BLACK);
+    screen -> fillScreen(bgColor);
+    screen -> setTextColor(ST77XX_WHITE, bgColor);
     screen -> setTextSize(2);
     screen -> println(title);
     screen -> println();
@@ -46,7 +46,7 @@ void Menu::printText(){
 // Set the star on the correct option on the screen
 int Menu::updateOption(int reqOption){
 
-    screen -> setTextColor(ST77XX_WHITE, ST77XX_BLACK);
+    screen -> setTextColor(ST77XX_WHITE, bgColor);
     screen -> setTextSize(2);
     for(int i = 2; i<currCursor.yPos_max; i++){
         screen -> setCursor(0, i*currCursor.dy );
@@ -94,8 +94,8 @@ String Menu::setw(String inputStr, int width){
 // Used to scroll up through text if there are not options to select from. Does not wrap
 int Menu::upScroll(){
     screen -> setCursor(0,0);
-    screen -> fillScreen(ST77XX_BLACK);
-    screen -> setTextColor(ST77XX_WHITE, ST77XX_BLACK);
+    screen -> fillScreen(bgColor);
+    screen -> setTextColor(ST77XX_WHITE, bgColor);
     screen -> setTextSize(2);
     screen -> println(title);
     screen -> println();
@@ -117,8 +117,8 @@ int Menu::upScroll(){
 // Used to scroll down through text if there are not options to select from. Does not wrap
 int Menu::downScroll(){
     screen -> setCursor(0,0);
-    screen -> fillScreen(ST77XX_BLACK);
-    screen -> setTextColor(ST77XX_WHITE, ST77XX_BLACK);
+    screen -> fillScreen(bgColor);
+    screen -> setTextColor(ST77XX_WHITE, bgColor);
     screen -> setTextSize(2);
     screen -> println(title);
     screen -> println(); 
