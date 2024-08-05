@@ -4,6 +4,7 @@ Last Updated: 22JUL24
 */
 
 #include <Arduino.h>
+
 #include <AnimatedGIF.h>     // Used to play the GIFs
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
@@ -11,7 +12,6 @@ Last Updated: 22JUL24
 #include <SD.h>
 #include "Menu.h"
 #include "Puzzle.h"
-
 // Constants
 #define DISPLAY_WIDTH 160
 #define DISPLAY_HEIGHT 128
@@ -107,14 +107,14 @@ FunctionStruct gifChoices[] = {
 
 int numErrorChoices = 1;
 FunctionStruct errorChoices[] = {
-  {String("An error has been \nidentified with the\nSD Card!\nPlease check that the\nsd-card is properly\ninserted. Reboot\nthe device to\ntry again..."), temp}
+  {String("An error has been \nidentified with the\nSD Card!\nPlease check that the\nsd-card is properly\ninserted. Reboot\nthe device to\ntry again...\n\n\nThanks Crowdstrike..."), temp}
 };
 
 // Menus used for the interface
 Menu mainMenu = Menu(&tft, String(" VETCON 2024 "), mainChoices, numMainChoices, 1);
 Menu aboutMenu = Menu(&tft, String("    About    "), aboutChoices, numAboutChoices, 0);
-Menu gifMenu = Menu(&tft, String("     GIF    "), gifChoices, numGifChoices, 1);
-Menu errorMenu = Menu(&tft, String("    ERROR    "), errorChoices, numErrorChoices, 0);
+Menu gifMenu = Menu(&tft, String  ("     GIF     "), gifChoices, numGifChoices, 1);
+Menu errorMenu = Menu(&tft, String("    BSOD!    "), errorChoices, numErrorChoices, 0);
 Puzzle puzzleGame = Puzzle(&tft, String("    PUZZLE"));
 
 // Pointers to track state of the menues
@@ -125,7 +125,8 @@ Menu* prevMenu = &mainMenu;
 
 void setup(void) {
   Serial.begin(9600);
-
+  
+  errorMenu.bgColor = ST77XX_RED;
   // Seed the random number generator forso we pick different GIFs each reboot 
   randomSeed(analogRead(0));
   
@@ -151,6 +152,8 @@ void setup(void) {
 
   // If everything has worked to this point, we can show the main menu
   mainMenu.printMenu();
+  Serial.print("SD card pdrv: ");
+  Serial.println(SD.status());
 
 }
 
@@ -213,6 +216,11 @@ void * GIFOpenFile(const char *fname, int32_t *pSize)
     *pSize = f.size();
     return (void *)&f;
   }
+  Serial.println("HereOpen");
+  if(SD.status()){
+      errorMenu.printText();
+      while (1);
+    }
   return NULL;
 }
 // Closes the GIF file to avoid any problems with the filesystem
@@ -220,6 +228,11 @@ void * GIFOpenFile(const char *fname, int32_t *pSize)
 void GIFCloseFile(void *pHandle)
 {
   File *f = static_cast<File *>(pHandle);
+  Serial.println("HereClose");
+  if(SD.status()){
+      errorMenu.printText();
+      while (1);
+    }
   if (f != NULL)
      f->close();
 } 
@@ -235,7 +248,13 @@ int32_t GIFReadFile(GIFFILE *pFile, uint8_t *pBuf, int32_t iLen)
        iBytesRead = pFile->iSize - pFile->iPos - 1; // <-- ugly work-around
     if (iBytesRead <= 0)
        return 0;
+       Serial.println("HereRead");
+    if(SD.status()){
+      errorMenu.printText();
+      while (1);
+    }
     iBytesRead = (int32_t)f->read(pBuf, iBytesRead);
+    
     pFile->iPos = f->position();
     return iBytesRead;
 }
@@ -244,6 +263,11 @@ int32_t GIFSeekFile(GIFFILE *pFile, int32_t iPosition)
 { 
   int i = micros();
   File *f = static_cast<File *>(pFile->fHandle);
+  Serial.println("Hereseek");
+  if(SD.status()){
+      errorMenu.printText();
+      while (1);
+    }
   f->seek(iPosition);
   pFile->iPos = (int32_t)f->position();
   i = micros() - i;
@@ -471,7 +495,6 @@ short buttonPressed(int button){
 void initSDCard(){
   File root;
   if (!SD.begin(SD_CS)) {
-
     errorMenu.printText();
     while(1);
   }
