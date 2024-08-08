@@ -26,9 +26,8 @@ class Puzzle{
         String currValString;
         int carrotIdx;
         int level;
-        int puzzle_prize[10] = {1111, 2222, 3333, 4444, 5555,6666,7777,8888,9999, 1234};
+        int puzzle_prize[10] = {300, 2448, 3006, 8171, 5535, 1546, 7444, 9627, 6242, 1337};
         Puzzle(Adafruit_ST7735 *tftScreen, String usrTitle);
-
 
         void printNewGame();
         void printText();
