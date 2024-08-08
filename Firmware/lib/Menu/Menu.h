@@ -37,8 +37,8 @@ class Menu{
         int updateOption(int reqOption);
         int upChoice();
         int downChoice();
-        int upScroll();
-        int downScroll();
+        int upScroll(int textsize, int width);
+        int downScroll(int textsize, int width);
         String setw(String inputStr, int width);
 
     private:

@@ -10,6 +10,7 @@ Last Updated: 22JUL24
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <SPI.h>
 #include <SD.h>
+#include <EEPROM.h>
 #include "Menu.h"
 #include "Puzzle.h"
 // Constants
@@ -30,7 +31,7 @@ Last Updated: 22JUL24
 #define right_button 2
 
 #define rotation     3
-
+#define EEPROM_SIZE 2
 // These get updated in the initSDCard function
 int afImgNum = 1;
 int armyImgNum = 1;
@@ -52,6 +53,7 @@ void drawImg(char* imgName);
 void main_first();
 void main_second();
 void main_third();
+void main_fourth();
 void temp();
 void initSDCard();
 void gif_cg();
@@ -60,7 +62,8 @@ void gif_navy();
 void gif_marines();
 void gif_army();
 void gif_space();
-
+void prizeGif();
+void resetPuzzle();
 // Function to avoid debounce
 short buttonPressed(int button);
 
@@ -79,11 +82,12 @@ AnimatedGIF gif;
 File f;
 
 
-int numMainChoices = 3;
+int numMainChoices = 4;
 FunctionStruct mainChoices[] = {
   {String("GIFs"), main_first},
   {String("Puzzle"), main_second},
-  {String("About"), main_third}
+  {String("Prizes"), main_third},
+  {String("About"), main_fourth}
 };
 
 int numAboutChoices = 6;
@@ -104,7 +108,20 @@ FunctionStruct gifChoices[] = {
   {String("Army"), gif_army},
   {String("Space Force"), gif_space}
 };
-
+int numPrizeChoices = 11;
+FunctionStruct prizeChoices[] = {
+  {String("Prize 1"), prizeGif},
+  {String("Prize 2"), prizeGif},
+  {String("Prize 3"), prizeGif},
+  {String("Prize 4"), prizeGif},
+  {String("Prize 5"), prizeGif},
+  {String("Prize 6"), prizeGif},
+  {String("Prize 7"), prizeGif},
+  {String("Prize 8"), prizeGif},
+  {String("Prize 9"), prizeGif},
+  {String("Prize 10"), prizeGif},
+  {String("Reset"), resetPuzzle}
+};
 int numErrorChoices = 1;
 FunctionStruct errorChoices[] = {
   {String("An error has been \nidentified with the\nSD Card!\nPlease check that the\nsd-card is properly\ninserted. Reboot\nthe device to\ntry again...\n\n\nThanks Crowdstrike..."), temp}
@@ -114,6 +131,7 @@ FunctionStruct errorChoices[] = {
 Menu mainMenu = Menu(&tft, String(" VETCON 2024 "), mainChoices, numMainChoices, 1);
 Menu aboutMenu = Menu(&tft, String("    About    "), aboutChoices, numAboutChoices, 0);
 Menu gifMenu = Menu(&tft, String  ("     GIF     "), gifChoices, numGifChoices, 1);
+Menu prizeMenu = Menu(&tft, String("   Prizes"), prizeChoices, numPrizeChoices, 1);
 Menu errorMenu = Menu(&tft, String("    BSOD!    "), errorChoices, numErrorChoices, 0);
 Puzzle puzzleGame = Puzzle(&tft, String("    PUZZLE"));
 
@@ -125,7 +143,8 @@ Menu* prevMenu = &mainMenu;
 
 void setup(void) {
   Serial.begin(9600);
-  
+  Serial.println("Hello, from @Soups71 and the VETCON team :)");
+  EEPROM.begin(1);
   errorMenu.bgColor = ST77XX_RED;
   // Seed the random number generator forso we pick different GIFs each reboot 
   randomSeed(analogRead(0));
@@ -134,7 +153,6 @@ void setup(void) {
   // Sets the screen to be rotated in the right direction.
   // If upside down; set to 1 instead of 3
   tft.setRotation(3);
-
   // Set the button inputs
   pinMode(up_button, INPUT);
   pinMode(down_button, INPUT);
@@ -149,11 +167,10 @@ void setup(void) {
   // Also, gets the correct number of gifs for each service
   // Function takes appox. 2 sec to run on 90 gifs
   initSDCard();
-
+  // Read level information stored on EEPROM
+  puzzleGame.level = EEPROM.read(0);
   // If everything has worked to this point, we can show the main menu
   mainMenu.printMenu();
-  Serial.print("SD card pdrv: ");
-  Serial.println(SD.status());
 
 }
 
@@ -164,14 +181,14 @@ void loop() {
         currentMenu -> upChoice();
       }else{
         //scroll
-        currentMenu -> upScroll();
+        currentMenu -> upScroll(1, 1);
       }
     }else if(buttonPressed(down_button)){
       if(currentMenu -> ifMenu){
         currentMenu -> downChoice();
       }else{
         //scroll
-        currentMenu -> downScroll();
+        currentMenu -> downScroll(1, 1);
       }
     }else if(buttonPressed(left_button)){
       currentMenu = prevMenu;
@@ -190,6 +207,7 @@ void loop() {
       puzzleGame.downChoice();
     }else if(buttonPressed(left_button)){
       if(puzzleGame.carrotIdx ==0){
+        puzzleGame.currValue =0;
         currentMenu = prevMenu;
         prevMenu = &mainMenu;
         currentMenu -> printMenu();
@@ -200,6 +218,8 @@ void loop() {
 
     }else if(buttonPressed(right_button)){
         puzzleGame.moveCarrotRight();
+        EEPROM.write(0, puzzleGame.getLevel());
+        EEPROM.commit();
 
     }
 
@@ -216,7 +236,6 @@ void * GIFOpenFile(const char *fname, int32_t *pSize)
     *pSize = f.size();
     return (void *)&f;
   }
-  Serial.println("HereOpen");
   if(SD.status()){
       errorMenu.printText();
       while (1);
@@ -228,7 +247,6 @@ void * GIFOpenFile(const char *fname, int32_t *pSize)
 void GIFCloseFile(void *pHandle)
 {
   File *f = static_cast<File *>(pHandle);
-  Serial.println("HereClose");
   if(SD.status()){
       errorMenu.printText();
       while (1);
@@ -248,7 +266,6 @@ int32_t GIFReadFile(GIFFILE *pFile, uint8_t *pBuf, int32_t iLen)
        iBytesRead = pFile->iSize - pFile->iPos - 1; // <-- ugly work-around
     if (iBytesRead <= 0)
        return 0;
-       Serial.println("HereRead");
     if(SD.status()){
       errorMenu.printText();
       while (1);
@@ -263,7 +280,6 @@ int32_t GIFSeekFile(GIFFILE *pFile, int32_t iPosition)
 { 
   int i = micros();
   File *f = static_cast<File *>(pFile->fHandle);
-  Serial.println("Hereseek");
   if(SD.status()){
       errorMenu.printText();
       while (1);
@@ -271,7 +287,6 @@ int32_t GIFSeekFile(GIFFILE *pFile, int32_t iPosition)
   f->seek(iPosition);
   pFile->iPos = (int32_t)f->position();
   i = micros() - i;
-//  Serial.printf("Seek time = %d us\n", i);
   return pFile->iPos;
 } /* GIFSeekFile() */
 
@@ -407,8 +422,14 @@ void main_second(){
   inGame = 1;
   puzzleGame.printNewGame();
 }
+// Enter the puzzle game
+void main_third(){
+  currentMenu = &prizeMenu;
+  prevMenu = &mainMenu;
+  currentMenu->printMenu();
+}
 // Enter the About Menu
-void main_third(){ 
+void main_fourth(){ 
   currentMenu = &aboutMenu;
   prevMenu = &mainMenu;
   currentMenu->printText();
@@ -522,3 +543,21 @@ void initSDCard(){
 void temp(){
   // Legit temp function to avoid crashing
 };
+void prizeGif(){
+int currentChoice = prizeMenu.currCursor.option; // This will be 0->numItems-1, but levels are 
+
+  if(currentChoice<puzzleGame.getLevel()){
+    char imgName[128];
+    sprintf(imgName, "/challenge%d.gif", currentChoice+1);
+    drawImg(imgName);
+    currentMenu -> printMenu();
+    currentMenu -> updateOption(currentChoice);
+  }
+  
+
+}
+void resetPuzzle(){
+  EEPROM.write(0, puzzleGame.updateLevel(0));
+  EEPROM.commit();
+  currentMenu -> printMenu();
+}

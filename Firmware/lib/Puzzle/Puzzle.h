@@ -8,6 +8,7 @@ Last Updated: 22JUL24
 #include <Arduino.h>
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h>
+// #include <EEPROM.h>
 #include "Cursor.h"
 #include "words.h"
 #include "string.h"
@@ -24,11 +25,16 @@ class Puzzle{
         int currValue;
         String currValString;
         int carrotIdx;
+        int level;
+        int puzzle_prize[10] = {1111, 2222, 3333, 4444, 5555,6666,7777,8888,9999, 1234};
         Puzzle(Adafruit_ST7735 *tftScreen, String usrTitle);
 
 
         void printNewGame();
         void printText();
+        void printPrize();
+        int updateLevel(int level);
+        int getLevel();
         int moveCarrotRight();
         int moveCarrotLeft();
         int upChoice();

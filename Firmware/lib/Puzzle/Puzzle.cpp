@@ -9,6 +9,7 @@ Puzzle::Puzzle(Adafruit_ST7735 *tftScreen, String usrTitle){
     title = usrTitle;
     currValue = 0;
     currValString = String();
+    // EEPROM.begin(1);
 }
 
 void Puzzle::printNewGame(){
@@ -25,6 +26,15 @@ void Puzzle::printNewGame(){
     screen -> print("^");
 
 }
+int Puzzle::updateLevel(int newLevel){
+  
+    level = newLevel;
+    return level;
+}
+int Puzzle::getLevel(){
+    // level = EEPROM.read(0);
+    return level;
+}
 
 int Puzzle::moveCarrotRight(){
 
@@ -37,6 +47,7 @@ int Puzzle::moveCarrotRight(){
     if(carrotIdx>3){
         carrotIdx = 3;
         printWord();
+        
     }
     screen -> setCursor((carrotIdx+5)*currCursor.dx, (4)*currCursor.dy );
     screen -> setTextSize(2);
@@ -102,7 +113,6 @@ int Puzzle::updateVal(int increase){
     default:
         break;
    }
-   Serial.println(currValString);
    screen -> setTextSize(2);
     screen -> setCursor((5*currCursor.dx), (3*currCursor.dy));
     setw(4);
@@ -117,10 +127,10 @@ int Puzzle::setw(int width){
     return 0;
 }
 void Puzzle::printWord(){
-    screen -> setCursor(0, (5*currCursor.dy));
+    screen -> setCursor(0, (7*currCursor.dy));
     screen -> setTextSize(1);
-    screen -> print(setw(String("vetconactual.com/dc32/"), 28));
-    screen -> setCursor(0, (6*currCursor.dy));
+    screen -> print(setw(String("vetcon.group/dc32"), 28));
+    screen -> setCursor(0, (5*currCursor.dy));
     screen -> setTextSize(1);
     int hexLength = strlen(endpoints[currValue]);
     int dataLength = hexLength / 2;
@@ -132,10 +142,30 @@ void Puzzle::printWord(){
     // Decrypt the data
     rc4_crypt(s, encryptedData, dataLength);
     encryptedData[dataLength]=0x00;
-    Serial.println("Decrypted: ");
-    Serial.println((char *)encryptedData);
+    // Serial.println("Decrypted: ");
+    // Serial.println((char *)encryptedData);
     screen -> print(setw(String((char *)encryptedData), 28));
+    printPrize();
     
+}
+void Puzzle::printPrize(){
+    
+    for(int i = 0; i<10; i++){
+        if(currValue == puzzle_prize[i] && level == i){
+            updateLevel((i+1));
+            screen -> setCursor(0, (2*currCursor.dy));
+            screen -> setTextSize(1);
+            
+            String winner = String("Unlocked Puzzle ") + String(i+1);
+            screen -> print(setw(winner, 28));
+            break;
+        }else if(currValue == puzzle_prize[i] && level > i){
+            screen -> setCursor(0, (2*currCursor.dy));
+            screen -> setTextSize(1);
+            screen -> print(setw(String("Level Already Unlocked"), 28));
+            break;
+        }
+    }
 }
 void Puzzle::clearWord(){
     screen -> setTextSize(1);
@@ -144,6 +174,8 @@ void Puzzle::clearWord(){
     screen -> setCursor((0), (6*currCursor.dy));
     screen -> print("                         ");
     screen -> setCursor((0), (7*currCursor.dy));
+    screen -> print("                         ");
+    screen -> setCursor((0), (2*currCursor.dy));
     screen -> print("                         ");
     screen -> setTextSize(2);
 }
