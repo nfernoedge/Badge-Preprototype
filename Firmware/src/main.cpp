@@ -149,7 +149,7 @@ void setup(void) {
   if(EEPROM.read(1)!=1){
     initFlash();
   }
-  errorMenu.bgColor = ST77XX_RED;
+  errorMenu.bgColor = ST77XX_BLUE;
   // Seed the random number generator forso we pick different GIFs each reboot 
   randomSeed(analogRead(0));
   

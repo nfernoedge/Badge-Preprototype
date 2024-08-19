@@ -17,7 +17,7 @@ def convert_to_rgb565(image):
     g = (img_data[:, :, 1] >> 2).astype(np.uint16)
     b = (img_data[:, :, 2] >> 3).astype(np.uint16)
 
-    rgb565 = (b << 11) | (g << 5) | r
+    rgb565 = (r << 11) | (g << 5) | b
     return rgb565
 
 def convert_rgb565_to_image(rgb565, width, height):
@@ -30,7 +30,7 @@ def convert_rgb565_to_image(rgb565, width, height):
 
 
 def convertimg(origDir, imgName):
-    os.mkdir("recolor")
+    # os.mkdir("recolor")
     # Load the GIF image
     image = Image.open(f'{origDir}/{imgName}')
 
