@@ -40,6 +40,9 @@ int marineImgNum = 1;
 int navyImgNum = 1;
 int spaceImgNum = 1;
 
+// Init Checks
+void initSDCard();
+void initFlash();
 
 // Functions for the playing of the GIFs 
 void * GIFOpenFile(const char *fname, int32_t *pSize);
@@ -55,7 +58,6 @@ void main_second();
 void main_third();
 void main_fourth();
 void temp();
-void initSDCard();
 void gif_cg();
 void gif_af();
 void gif_navy();
@@ -140,16 +142,18 @@ Menu* currentMenu = &mainMenu;
 Menu* prevMenu = &mainMenu;
 
 
-
 void setup(void) {
   Serial.begin(9600);
   Serial.println("Hello, from @Soups71 and the VETCON team :)");
-  EEPROM.begin(1);
+  EEPROM.begin(2);
+  if(EEPROM.read(1)!=1){
+    initFlash();
+  }
   errorMenu.bgColor = ST77XX_RED;
   // Seed the random number generator forso we pick different GIFs each reboot 
   randomSeed(analogRead(0));
   
-  tft.initR(INITR_GREENTAB);
+  tft.initR(INITR_BLACKTAB);
   // Sets the screen to be rotated in the right direction.
   // If upside down; set to 1 instead of 3
   tft.setRotation(3);
@@ -556,6 +560,13 @@ int currentChoice = prizeMenu.currCursor.option; // This will be 0->numItems-1, 
   
 
 }
+void initFlash(){
+  EEPROM.write(0, puzzleGame.updateLevel(0));
+  int firstStart = 1;
+  EEPROM.write(1, firstStart);
+  EEPROM.commit();
+}
+
 void resetPuzzle(){
   EEPROM.write(0, puzzleGame.updateLevel(0));
   EEPROM.commit();
