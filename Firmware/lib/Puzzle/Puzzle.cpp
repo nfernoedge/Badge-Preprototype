@@ -150,7 +150,7 @@ void Puzzle::printWord(){
 }
 void Puzzle::printPrize(){
     
-    for(int i = 0; i<10; i++){
+    for(int i = 0; i<8; i++){
         if(currValue == puzzle_prize[i] && level == i){
             updateLevel((i+1));
             screen -> setCursor(0, (2*currCursor.dy));

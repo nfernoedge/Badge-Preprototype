@@ -110,7 +110,7 @@ FunctionStruct gifChoices[] = {
   {String("Army"), gif_army},
   {String("Space Force"), gif_space}
 };
-int numPrizeChoices = 11;
+int numPrizeChoices = 9;
 FunctionStruct prizeChoices[] = {
   {String("Prize 1"), prizeGif},
   {String("Prize 2"), prizeGif},
@@ -120,8 +120,6 @@ FunctionStruct prizeChoices[] = {
   {String("Prize 6"), prizeGif},
   {String("Prize 7"), prizeGif},
   {String("Prize 8"), prizeGif},
-  {String("Prize 9"), prizeGif},
-  {String("Prize 10"), prizeGif},
   {String("Reset"), resetPuzzle}
 };
 int numErrorChoices = 1;
