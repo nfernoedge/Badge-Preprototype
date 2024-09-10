@@ -26,12 +26,12 @@ class Puzzle{
         String currValString;
         int carrotIdx;
         int level;
-        int puzzle_prize[8] = {300, 2448, 8171, 5355, 1546, 7444, 9627, 1337};
+        uint32_t menu_colors[4] = {0x659d14, 0x454017, 0xCda3a6, 0x0e13b7};
+        uint32_t randint[8] = {0xFE36ED73, 0x08A56F4E, 0xB2338793, 0x1C57E305, 0x49FFED3A, 0x8A394B25, 0x55F6894A, 0x85ED4062};
         Puzzle(Adafruit_ST7735 *tftScreen, String usrTitle);
 
         void printNewGame();
         void printText();
-        void printPrize();
         int updateLevel(int level);
         int getLevel();
         int moveCarrotRight();
@@ -43,6 +43,9 @@ class Puzzle{
         String setw(String inputStr, int width);
         void printWord();
         void clearWord();
+        void randWait();
+        void dispColor();
+        void getCustColors(uint32_t *v, const uint32_t  *colors);
         void rc4_init(unsigned char *s, unsigned char *key, int keylen);
         void rc4_crypt(unsigned char *s, unsigned char *data, int datalen);
         int hexCharToInt(char c);

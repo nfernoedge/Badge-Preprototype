@@ -171,6 +171,7 @@ void setup(void) {
   initSDCard();
   // Read level information stored on EEPROM
   puzzleGame.level = EEPROM.read(0);
+  puzzleGame.getCustColors(puzzleGame.randint, puzzleGame.menu_colors);
   // If everything has worked to this point, we can show the main menu
   mainMenu.printMenu();
 

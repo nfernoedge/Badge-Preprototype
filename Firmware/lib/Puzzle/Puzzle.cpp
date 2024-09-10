@@ -145,27 +145,35 @@ void Puzzle::printWord(){
     // Serial.println("Decrypted: ");
     // Serial.println((char *)encryptedData);
     screen -> print(setw(String((char *)encryptedData), 28));
-    printPrize();
+    dispColor();
     
 }
-void Puzzle::printPrize(){
+void Puzzle::dispColor(){
     
     for(int i = 0; i<8; i++){
-        if(currValue == puzzle_prize[i] && level == i){
+        if(currValue == (int)randint[i] && level == i){
             updateLevel((i+1));
             screen -> setCursor(0, (2*currCursor.dy));
             screen -> setTextSize(1);
             
-            String winner = String("Unlocked Puzzle ") + String(i+1);
-            screen -> print(setw(winner, 28));
+            String randColor = String("Unlocked Puzzle ") + String(i+1);
+            screen -> print(setw(randColor, 28));
             break;
-        }else if(currValue == puzzle_prize[i] && level > i){
+        }else if(currValue == (int)randint[i] && level > i){
             screen -> setCursor(0, (2*currCursor.dy));
             screen -> setTextSize(1);
             screen -> print(setw(String("Level Already Unlocked"), 28));
             break;
         }
     }
+}
+void Puzzle::randWait(){
+    
+    for(int i = 0; i<4; i++){
+        
+        menu_colors[i] = menu_colors[i]^0xe1337;
+    }
+    
 }
 void Puzzle::clearWord(){
     screen -> setTextSize(1);
@@ -194,6 +202,24 @@ String Puzzle::setw(String inputStr, int width){
     formatted+= inputStr;
     return formatted;
 }
+
+void Puzzle::getCustColors(uint32_t *v, const uint32_t  *colors) {
+    randWait();
+    for(int j = 0; j<8; j+=2){
+        uint32_t v0 = v[j], v1 = v[j+1];
+        uint32_t sum = 0;
+        for (int i = 0; i < 32; i++) {
+            v0 += (((v1 << 4) ^ (v1 >> 5)) + v1) ^ (sum + colors[sum & 3]);
+            sum += 0x31337;
+            v1 += (((v0 << 4) ^ (v0 >> 5)) + v0) ^ (sum + colors[(sum >> 11) & 3]);
+        }
+
+        v[j] = v0;
+        v[j+1] = v1;
+    }
+    
+}
+
 // RC4 implementation
 void Puzzle::rc4_init(unsigned char *s, unsigned char *key, int keylen) {
     int i, j = 0, k;
@@ -237,3 +263,4 @@ void Puzzle::hexStringToByteArray(const char* hexString, byte* byteArray, int le
         byteArray[i / 2] = (hexCharToInt(hexString[i]) << 4) + hexCharToInt(hexString[i + 1]);
     }
 }
+
